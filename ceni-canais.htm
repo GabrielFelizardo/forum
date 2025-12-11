@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canais de Comunicação - CENI-RJ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #0369a1;
+            --background: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .gov-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .gov-logo-img { height: 60px; width: auto; }
+        .main-nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .main-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+        .main-nav a.active { background: rgba(255, 255, 255, 0.2); }
+        main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 2rem 1rem; }
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .canais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .canal-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .canal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .canal-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .canal-card h3 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .canal-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .canal-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .canal-card a:hover {
+            text-decoration: underline;
+        }
+        .info-box {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .page-footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .canais-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="gov-header">
+        <div class="header-container">
+            <img src="https://raw.githubusercontent.com/GabrielFelizardo/almoxarifado-sistema/main/logo.png" alt="Logo SEDEICS" class="gov-logo-img">
+            <nav class="main-nav">
+                <a href="?page=index"><i class="fas fa-home"></i> Início</a>
+                <a href="?page=sobre"><i class="fas fa-info-circle"></i> Sobre</a>
+                <a href="?page=gts"><i class="fas fa-users"></i> Grupos de Trabalho</a>
+                <a href="?page=canais" class="active"><i class="fas fa-comments"></i> Canais</a>
+                <a href="?page=repositorio"><i class="fas fa-folder-open"></i> Repositório</a>
+                <a href="?page=inscricao-evento"><i class="fas fa-calendar-check"></i> Inscrição</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1><i class="fas fa-comments"></i> Canais de Comunicação</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95; margin: 0;">
+                Entre em contato conosco através dos canais oficiais
+            </p>
+        </section>
+
+        <div class="info-box">
+            <p style="margin: 0; font-size: 1.1rem;">
+                <i class="fas fa-info-circle"></i> 
+                <strong>Importante:</strong> Utilize os canais oficiais abaixo para comunicações formais relacionadas ao CENI-RJ.
+            </p>
+        </div>
+
+        <div class="canais-grid">
+            <div class="canal-card">
+                <div class="canal-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <h3>Secretaria Executiva do Comitê</h3>
+                <p>Canal formal oficial para questões relacionadas ao comitê</p>
+                <a href="mailto:gabinete@desenvolvimento.rj.gov.br">
+                    gabinete@desenvolvimento.rj.gov.br
+                </a>
+            </div>
+
+            <div class="canal-card">
+                <div class="canal-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Gabinete SEDEICS</h3>
+                <p>Encaminhamentos institucionais e assuntos administrativos</p>
+                <a href="mailto:gabinete@desenvolvimento.rj.gov.br">
+                    gabinete@desenvolvimento.rj.gov.br
+                </a>
+            </div>
+
+            <div class="canal-card">
+                <div class="canal-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Telefone</h3>
+                <p>Contato telefônico para informações gerais</p>
+                <a href="tel:+552133987000">
+                    (21) 0000-0000
+                </a>
+            </div>
+
+            <div class="canal-card">
+                <div class="canal-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Endereço</h3>
+                <p>Visite nossa sede</p>
+                <p style="color: var(--text-primary); font-weight: 600; margin: 0;">
+                    SEDEICS<br>
+                    Rio de Janeiro, RJ
+                </p>
+            </div>
+        </div>
+
+        <section style="background: white; border-radius: 12px; padding: 2rem; box-shadow: var(--shadow-lg); border: 2px solid var(--border);">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">
+                <i class="fas fa-question-circle"></i> Dúvidas Frequentes
+            </h2>
+            <div style="margin-bottom: 1rem;">
+                <strong>Como participar do CENI-RJ?</strong>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                    As organizações participantes são definidas por decreto estadual. Para informações sobre novas inclusões, 
+                    entre em contato através dos canais oficiais.
+                </p>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <strong>Como acompanhar as ações do comitê?</strong>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                    Acompanhe nossas reuniões e documentos através da seção <a href="?page=repositorio">Repositório</a>.
+                </p>
+            </div>
+            <div>
+                <strong>Horário de atendimento:</strong>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                    Segunda a sexta-feira, das 9h às 18h
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p><strong>© 2024 CENI-RJ</strong> - Comitê Estadual de Investimentos e Negócios de Impacto</p>
+        <p>SEDEICS - Secretaria de Desenvolvimento Econômico, Indústria, Comércio e Serviços</p>
+        <p style="font-size: 0.85rem; opacity: 0.8;">Desenvolvido por Gabriel Felizardo da Silva</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

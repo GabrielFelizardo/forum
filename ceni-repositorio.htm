@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositório - CENI-RJ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #0369a1;
+            --background: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .gov-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .gov-logo-img { height: 60px; width: auto; }
+        .main-nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .main-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+        .main-nav a.active { background: rgba(255, 255, 255, 0.2); }
+        main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 2rem 1rem; }
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .documento-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .documento-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateX(4px);
+        }
+        .doc-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            min-width: 60px;
+            text-align: center;
+        }
+        .doc-info { flex: 1; }
+        .doc-info h4 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .doc-info p {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn-download {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .btn-download:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .categoria-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .categoria-header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .page-footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            text-align: center;
+        }
+        .loading { text-align: center; padding: 3rem; }
+    </style>
+</head>
+<body>
+    <header class="gov-header">
+        <div class="header-container">
+            <img src="https://raw.githubusercontent.com/GabrielFelizardo/almoxarifado-sistema/main/logo.png" alt="Logo SEDEICS" class="gov-logo-img">
+            <nav class="main-nav">
+                <a href="?page=index"><i class="fas fa-home"></i> Início</a>
+                <a href="?page=sobre"><i class="fas fa-info-circle"></i> Sobre</a>
+                <a href="?page=gts"><i class="fas fa-users"></i> Grupos de Trabalho</a>
+                <a href="?page=canais"><i class="fas fa-comments"></i> Canais</a>
+                <a href="?page=repositorio" class="active"><i class="fas fa-folder-open"></i> Repositório</a>
+                <a href="?page=inscricao-evento"><i class="fas fa-calendar-check"></i> Inscrição</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1><i class="fas fa-folder-open"></i> Repositório de Documentos</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95; margin: 0;">
+                Acesse documentos, atas e materiais do CENI-RJ
+            </p>
+        </section>
+
+        <div id="loading" class="loading">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-3">Carregando documentos...</p>
+        </div>
+
+        <div id="documentos-container"></div>
+    </main>
+
+    <footer class="page-footer">
+        <p><strong>© 2024 CENI-RJ</strong> - Comitê Estadual de Investimentos e Negócios de Impacto</p>
+        <p>SEDEICS - Secretaria de Desenvolvimento Econômico, Indústria, Comércio e Serviços</p>
+        <p style="font-size: 0.85rem; opacity: 0.8;">Desenvolvido por Gabriel Felizardo da Silva</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const SCRIPT_URL = window.location.origin + window.location.pathname;
+        
+        document.addEventListener('DOMContentLoaded', carregarDocumentos);
+
+        async function carregarDocumentos() {
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        action: 'getDocumentos',
+                        usuario: null // Todos públicos
+                    })
+                });
+                
+                const documentos = await response.json();
+                
+                if (documentos.error) {
+                    throw new Error(documentos.error);
+                }
+                
+                renderizarDocumentos(documentos);
+                document.getElementById('loading').style.display = 'none';
+                
+            } catch (error) {
+                document.getElementById('loading').innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Nenhum documento disponível no momento. Verifique novamente em breve.
+                    </div>`;
+            }
+        }
+
+        function renderizarDocumentos(documentos) {
+            const container = document.getElementById('documentos-container');
+            
+            if (documentos.length === 0) {
+                container.innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Nenhum documento disponível no momento.
+                    </div>`;
+                return;
+            }
+
+            // Agrupa por categoria
+            const categorias = {
+                'Documentos Institucionais': [],
+                'Atas de Reunião': [],
+                'Relatórios': [],
+                'Outros': []
+            };
+
+            documentos.forEach(doc => {
+                if (doc.nome.toLowerCase().includes('ata')) {
+                    categorias['Atas de Reunião'].push(doc);
+                } else if (doc.nome.toLowerCase().includes('relatório') || doc.nome.toLowerCase().includes('relatorio')) {
+                    categorias['Relatórios'].push(doc);
+                } else if (doc.nome.toLowerCase().includes('estatuto') || doc.nome.toLowerCase().includes('regimento')) {
+                    categorias['Documentos Institucionais'].push(doc);
+                } else {
+                    categorias['Outros'].push(doc);
+                }
+            });
+
+            Object.keys(categorias).forEach(categoria => {
+                if (categorias[categoria].length > 0) {
+                    const section = document.createElement('div');
+                    section.className = 'categoria-section';
+                    
+                    section.innerHTML = `
+                        <div class="categoria-header">
+                            <h2 style="color: var(--primary); margin: 0;">
+                                <i class="fas fa-folder"></i> ${categoria}
+                            </h2>
+                        </div>
+                        <div id="docs-${categoria.replace(/\s/g, '-')}"></div>
+                    `;
+                    
+                    container.appendChild(section);
+                    
+                    const docsContainer = document.getElementById(`docs-${categoria.replace(/\s/g, '-')}`);
+                    
+                    categorias[categoria].forEach(doc => {
+                        const docCard = document.createElement('div');
+                        docCard.className = 'documento-card';
+                        
+                        const icon = doc.tipo === 'PDF' ? 'fa-file-pdf' : 
+                                   doc.tipo === 'Sheets' ? 'fa-file-excel' : 
+                                   'fa-file';
+                        
+                        docCard.innerHTML = `
+                            <div class="doc-icon">
+                                <i class="fas ${icon}"></i>
+                            </div>
+                            <div class="doc-info">
+                                <h4>${doc.nome}</h4>
+                                <p><i class="fas fa-calendar"></i> ${doc.data || 'Data não informada'}</p>
+                            </div>
+                            <div class="doc-actions">
+                                <a href="${doc.url}" target="_blank" class="btn-download">
+                                    <i class="fas fa-download"></i> Acessar
+                                </a>
+                            </div>
+                        `;
+                        
+                        docsContainer.appendChild(docCard);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
