@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos de Trabalho - CENI-RJ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --accent: #0369a1;
+            --success: #047857;
+            --background: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --green-dark: #1e5631;
+            --orange: #e8632e;
+            --pink: #e89bb8;
+            --yellow: #f4b942;
+            --beige: #e8d5d0;
+            --gt1-color: #1e3a8a;
+            --gt2-color: #1e5631;
+            --gt3-color: #e89bb8;
+            --gt4-color: #e8632e;
+            --gt5-color: #f4b942;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        /* Elementos Geométricos */
+        .geometric-decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .geo-circle-small { width: 50px; height: 50px; border-radius: 50%; background: var(--yellow); }
+        .geo-circle-medium { width: 100px; height: 100px; border-radius: 50%; background: var(--beige); }
+        .geo-circle-ring { width: 130px; height: 130px; border-radius: 50%; border: 18px solid var(--orange); background: transparent; }
+        .geo-semicircle { width: 120px; height: 60px; border-radius: 120px 120px 0 0; background: var(--pink); }
+        .geo-diamond { width: 90px; height: 90px; background: var(--green-dark); transform: rotate(45deg); }
+        .geo-triangle { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 104px solid var(--yellow); }
+        .geo-composite { width: 180px; height: 180px; position: relative; }
+        .geo-composite .layer1 { position: absolute; width: 120px; height: 120px; background: var(--green-dark); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .geo-composite .layer2 { position: absolute; width: 80px; height: 80px; background: var(--pink); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); top: 20px; left: 50px; }
+        
+        .gov-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .gov-logo-img { height: 60px; width: auto; }
+        .main-nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .main-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+        .main-nav a.active { background: rgba(255, 255, 255, 0.2); }
+        main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 2rem 1rem; position: relative; }
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header h1 { position: relative; z-index: 1; }
+        
+        .info-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        .info-box p { margin: 0; font-size: 1.05rem; line-height: 1.7; }
+        .info-box strong { color: var(--primary); }
+        
+        .gt-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .gt-header {
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .gt-header.gt1 { background: linear-gradient(135deg, var(--gt1-color) 0%, #0369a1 100%); }
+        .gt-header.gt2 { background: linear-gradient(135deg, var(--gt2-color) 0%, #047857 100%); }
+        .gt-header.gt3 { background: linear-gradient(135deg, var(--gt3-color) 0%, #ec4899 100%); }
+        .gt-header.gt4 { background: linear-gradient(135deg, var(--gt4-color) 0%, #dc2626 100%); }
+        .gt-header.gt5 { background: linear-gradient(135deg, var(--gt5-color) 0%, #f59e0b 100%); }
+        
+        .gt-header h2 { margin: 0 0 0.5rem 0; font-size: 2rem; font-weight: 800; }
+        .gt-header p { margin: 0; font-size: 1.1rem; opacity: 0.95; line-height: 1.6; }
+        
+        .organizacoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .org-badge {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .org-badge:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .org-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .org-badge h4 {
+            color: var(--primary);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .org-badge p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .orientacoes-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid var(--yellow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .orientacoes-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .orientacoes-box ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .orientacoes-box li {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .page-footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: auto;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .footer-section a:hover { color: white; text-decoration: underline; }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .contact-item i { color: var(--primary-light); min-width: 20px; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            text-align: center;
+        }
+        .footer-bottom p { margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .developer { font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem; }
+
+        @media (max-width: 768px) {
+            .footer-container { grid-template-columns: 1fr; }
+            .geometric-decoration { display: none; }
+            .organizacoes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="gov-header">
+        <div class="header-container">
+            <img src="https://raw.githubusercontent.com/GabrielFelizardo/almoxarifado-sistema/main/logo.png" alt="Logo SEDEICS" class="gov-logo-img">
+            <nav class="main-nav">
+                <a href="?page=index"><i class="fas fa-home"></i> Início</a>
+                <a href="?page=sobre"><i class="fas fa-info-circle"></i> Sobre</a>
+                <a href="?page=gts" class="active"><i class="fas fa-users"></i> Grupos de Trabalho</a>
+                <a href="?page=canais"><i class="fas fa-comments"></i> Canais</a>
+                <a href="?page=repositorio"><i class="fas fa-folder-open"></i> Repositório</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="geometric-decoration" style="top: 30px; left: 40px;">
+                <div class="geo-composite"><div class="layer1"></div><div class="layer2"></div></div>
+            </div>
+            <div class="geometric-decoration geo-circle-ring" style="top: 50px; right: 60px;"></div>
+            <div class="geometric-decoration geo-diamond" style="bottom: 40px; left: 120px;"></div>
+            
+            <h1><i class="fas fa-users"></i> Grupos de Trabalho</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95; margin: 0; position: relative; z-index: 1;">
+                Conheça os 5 Grupos de Trabalho e as organizações participantes
+            </p>
+        </section>
+
+        <div class="info-box">
+            <p>
+                <i class="fas fa-info-circle"></i> 
+                Os Grupos de Trabalho são as instâncias operacionais do CENI-RJ, responsáveis por 
+                desenvolver e executar as estratégias de fomento aos negócios de impacto no Estado do Rio de Janeiro.
+            </p>
+        </div>
+
+        <div class="orientacoes-box">
+            <h3><i class="fas fa-clipboard-list"></i> Orientações Gerais dos GTs</h3>
+            <ul>
+                <li>Cada GT contará com <strong>2 colíderes</strong> (Governo + Sociedade Civil)</li>
+                <li>As instituições devem participar de <strong>pelo menos 1 GT</strong> e podem integrar outros</li>
+                <li>Cada organização indica <strong>1 titular e 1 suplente</strong> por GT</li>
+            </ul>
+        </div>
+
+        <!-- GT 1 -->
+        <div class="gt-section">
+            <div class="geometric-decoration geo-circle-small" style="top: -20px; right: 30px;"></div>
+            
+            <div class="gt-header gt1">
+                <h2>GT 1 - Capital e Financiamento de Impacto</h2>
+                <p>Mobilizar mecanismos financeiros e promover acesso a capital para negócios de impacto, articulando investidores, fundos e instituições financeiras.</p>
+            </div>
+
+            <div class="organizacoes-grid">
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-landmark"></i></div>
+                    <h4>Casa Civil</h4>
+                    <p>Governo do Estado</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-building"></i></div>
+                    <h4>SEGOV</h4>
+                    <p>Secretaria de Governo</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-flask"></i></div>
+                    <h4>FAPERJ</h4>
+                    <p>Fundação de Amparo à Pesquisa</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GT 2 -->
+        <div class="gt-section">
+            <div class="geometric-decoration geo-semicircle" style="top: -25px; right: 50px;"></div>
+            
+            <div class="gt-header gt2">
+                <h2>GT 2 - Fomento a Negócios de Impacto</h2>
+                <p>Promover ações de formação, capacitação, aceleração e desenvolvimento técnico para negócios de impacto em diferentes estágios de maturidade.</p>
+            </div>
+
+            <div class="organizacoes-grid">
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h4>SEAS</h4>
+                    <p>Secretaria de Assistência Social</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>PUC-Rio</h4>
+                    <p>Universidade</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-industry"></i></div>
+                    <h4>SEBRAE-RJ</h4>
+                    <p>Apoio a Pequenos Negócios</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GT 3 -->
+        <div class="gt-section">
+            <div class="geometric-decoration geo-circle-medium" style="bottom: -30px; left: 40px; opacity: 0.3;"></div>
+            
+            <div class="gt-header gt3">
+                <h2>GT 3 - Fortalecimento de Organizações Intermediárias</h2>
+                <p>Fortalecer aceleradoras, institutos, hubs, coletivos e demais organizações que apoiam o ecossistema de impacto.</p>
+            </div>
+
+            <div class="organizacoes-grid">
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Impact Hub Rio</h4>
+                    <p>Hub de Inovação Social</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-industry"></i></div>
+                    <h4>Firjan</h4>
+                    <p>Sistema FIRJAN</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GT 4 -->
+        <div class="gt-section">
+            <div class="geometric-decoration geo-triangle" style="top: -40px; right: 70px;"></div>
+            
+            <div class="gt-header gt4">
+                <h2>GT 4 - Ambiente Institucional e Normativo</h2>
+                <p>Consolidar um ambiente institucional favorável à agenda de impacto, trabalhando marcos regulatórios e políticas públicas.</p>
+            </div>
+
+            <div class="organizacoes-grid">
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h4>ABERJ</h4>
+                    <p>Associação Brasileira</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-university"></i></div>
+                    <h4>UFRJ</h4>
+                    <p>Universidade Federal</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GT 5 -->
+        <div class="gt-section">
+            <div class="geometric-decoration" style="bottom: 30px; right: 50px;">
+                <div class="geo-composite"><div class="layer1"></div><div class="layer2"></div></div>
+            </div>
+            
+            <div class="gt-header gt5">
+                <h2>GT 5 - Articulação Interfederativa</h2>
+                <p>Fortalecer a articulação com municípios, consórcios, governos federal e entes federativos para ampliar o alcance das ações de impacto.</p>
+            </div>
+
+            <div class="organizacoes-grid">
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-store"></i></div>
+                    <h4>Fecomércio RJ</h4>
+                    <p>Federação do Comércio</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>Rio de Impacto</h4>
+                    <p>Organização de Impacto</p>
+                </div>
+                <div class="org-badge">
+                    <div class="org-icon"><i class="fas fa-globe"></i></div>
+                    <h4>Comissão ODS RJ</h4>
+                    <p>Objetivos de Desenvolvimento</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4><i class="fas fa-info-circle"></i> Sobre o CENI-RJ</h4>
+                <p>
+                    O Comitê Estadual de Investimentos e Negócios de Impacto promove a articulação entre governo, 
+                    instituições de fomento, sociedade civil e setor privado para fortalecer o ecossistema de 
+                    impacto socioambiental no Rio de Janeiro.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-link"></i> Links Rápidos</h4>
+                <a href="?page=index">Início</a>
+                <a href="?page=sobre">Sobre o Comitê</a>
+                <a href="?page=gts">Grupos de Trabalho</a>
+                <a href="?page=canais">Canais de Comunicação</a>
+                <a href="?page=repositorio">Repositório</a>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-envelope"></i> Contato</h4>
+                <div class="contact-item">
+                    <i class="fas fa-inbox"></i>
+                    <span>nucleo.acompanhamento@desenvolvimento.rj.gov.br</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <span>gabinete@desenvolvimento.rj.gov.br</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>SEDEICS - Rio de Janeiro, RJ</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© <span id="current-year"></span> CENI-RJ - Comitê Estadual de Investimentos e Negócios de Impacto</p>
+            <p>SEDEICS - Secretaria de Desenvolvimento Econômico, Indústria, Comércio e Serviços</p>
+            <p class="developer">Desenvolvido por Gabriel Felizardo da Silva</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
